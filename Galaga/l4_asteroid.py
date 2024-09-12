@@ -26,11 +26,11 @@ ship_speed = 5
 ship = pygame.Rect(ship_x, ship_y, ship_width, ship_height)  
 
 # Bullet Settings
-bullet_radius = 5       
-bullet_speed = 7        
+bullet_radius = 5
+bullet_speed = 7
 
 # Create the Bullet game object
-bullet = None           
+bullet = None
 # Keep track of the bullets
 bullets = []
 
@@ -40,7 +40,9 @@ asteroid_height = 30    # NEW
 asteroid_speed = 2      # NEW
 
 # Create the Asteroid game object
-asteroid = pygame.Rect(random.randint(0, WIDTH - asteroid_width), 0, asteroid_width, asteroid_height)   # NEW
+asteroid = None           # NEW
+# Keep track of the asteroids
+asteroids = []            # NEW
 
 # Game loop
 clock = pygame.time.Clock()
@@ -51,25 +53,27 @@ while True:
             pygame.quit()
             sys.exit()
 
-        if event.type == pygame.KEYDOWN:        
-            if event.key == pygame.K_SPACE:     
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
                 # Create a new bullet
-                bullet = pygame.Rect(ship.x + ship.width // 2, ship.y, bullet_radius, bullet_radius)    
-                bullets.append(bullet)          
+                bullet = pygame.Rect(ship.x + ship.width // 2, ship.y, bullet_radius, bullet_radius)
+                bullets.append(bullet)
+            if event.key == pygame.K_0:
+                # Choose a random position
+                randomX = random.randint(0, WIDTH - asteroid_width)                   # NEW
+                # Create a new asteroid
+                asteroid = pygame.Rect(randomX, 0, asteroid_width, asteroid_height)   # NEW
+                asteroids.append(asteroid)                                            # NEW
 
     # Move the bullets
-    for bullet in bullets:          
-        bullet.y -= bullet_speed    
+    for bullet in bullets:
+        bullet.y -= bullet_speed
+        
+    # Move the asteroids
+    for asteroid in asteroids:        # NEW
+        asteroid.y += asteroid_speed  # NEW
 
-    # Move the asteroid
-    asteroid.y += asteroid_speed    # NEW
-
-    # Reset the asteroid if it goes off the screen
-    if asteroid.y > HEIGHT:                                     # NEW
-        asteroid.x = random.randint(0, WIDTH - asteroid_width)  # NEW
-        asteroid.y = 0                                          # NEW
-    
-     # Get user input
+    # Get user input
     keys = pygame.key.get_pressed()
 
     # Move the ship
@@ -85,11 +89,12 @@ while True:
     pygame.draw.rect(screen, WHITE, ship)
 
     # Draw the bullets
-    for bullet in bullets:                                                        
+    for bullet in bullets:
         pygame.draw.circle(screen, WHITE, (bullet.x, bullet.y), bullet_radius)
-
-    # Draw the asteroid
-    pygame.draw.rect(screen, RED, asteroid)   # NEW
+        
+    # Draw the asteroids:
+    for asteroid in asteroids:                    # NEW
+        pygame.draw.rect(screen, RED, asteroid)   # NEW
 
     # Update the display
     pygame.display.flip()
