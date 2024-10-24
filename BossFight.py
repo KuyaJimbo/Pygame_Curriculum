@@ -37,26 +37,6 @@ class Bullet:
         # Draw bullet on screen here
 """
 
-class Cloud:
-    def __init__(self, x, y, radius, speed):
-        self.x = x
-        self.y = y
-        self.radius = radius
-        self.speed = speed
-    
-    def roll(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.x -= self.speed
-        if keys[pygame.K_RIGHT]:
-            self.x += self.speed
-        if keys[pygame.K_UP]:
-            self.y -= self.speed
-        if keys[pygame.K_DOWN]:
-            self.y += self.speed
-
-    def draw(self):
-        pygame.draw.circle(screen, WHITE, (self.x, self.y), self.radius)
 
 class Player:
     def __init__(self, width, height, speed):
@@ -137,7 +117,6 @@ class Boss:
         pygame.draw.rect(screen, GREEN, current_health_rect)
 
 # Game Objects
-cloud = Cloud(400, 100, 50, 5)
 player = Player(40, 60, 5)
 boss = Boss(60, 80, 4)
 
@@ -157,7 +136,6 @@ while True:
         # If SPACE key is pressed, call player.shoot()
     
     # Do Object Actions
-    cloud.roll()
     player.move()
     boss.move()
     # TODO: Call boss.shoot() here
@@ -187,7 +165,6 @@ while True:
     screen.fill(BLACK)
     
     # Draw Game Objects
-    cloud.draw()
     player.draw()
     boss.draw()
     boss.draw_health()
