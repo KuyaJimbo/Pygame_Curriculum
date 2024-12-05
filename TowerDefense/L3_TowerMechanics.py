@@ -59,23 +59,23 @@ class Tower:
                          )
 
     def is_hovered(self, mouse_pos):
-        """
-        Check if mouse is over the tower in the menu
-        """
-        # TODO: Implement hover detection
-        # Hint: Check if mouse x,y is within tower's rectangle
-        mx, my = mouse_pos
-        return (# Condition for x-axis)
-               (# Condition for y-axis)
+            """
+            Check if mouse is over the tower in the menu
+            """
+            # TODO: Implement hover detection
+            # Hint: Check if mouse x,y is within tower's rectangle
+            mx, my = mouse_pos
+            #(# Condition for x-axis) (# Condition for y-axis)
+            return (mx >= self.x and mx <= self.x + self.size and
+                    my >= self.y and my <= self.y + self.size)
 
     def is_in_play_area(self):
         """
         Check if tower is in the playable area
         """
         # TODO: Implement play area detection
-        return (# Condition: tower x is greater than menu width
-                # Condition: tower is within screen height
-        )
+        return (self.x >= MENU_WIDTH and self.x <= SCREEN_WIDTH - self.size and
+                self.y >= 0 and self.y <= SCREEN_HEIGHT - self.size)
 
 # Main Game Loop
 clock = pygame.time.Clock()
