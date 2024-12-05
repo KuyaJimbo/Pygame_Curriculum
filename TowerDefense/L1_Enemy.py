@@ -85,70 +85,65 @@ class Enemy:
         return # Return how much damage was done
 
 # Game Loop
-def main():
-    # Create clock to control game speed
-    clock = pygame.time.Clock()
-    
-    # Create a list to store enemies
-    enemies = []
-    
-    # Game running flag
-    running = True
-    
-    while running:
-        # Fill screen with white each frame
-        screen.fill(WHITE)
-        
-        # Event handling
-        for event in pygame.event.get():
-            # Quit the game
-            if event.type == pygame.QUIT:
-                running = False
-            
-            # Handle mouse clicks
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # Get mouse position
-                mouse_pos = pygame.mouse.get_pos()
-                
-                # Check each enemy if clicked
-                enemies_to_remove = []
-                for enemy in enemies:
-                    if enemy.is_clicked(mouse_pos):
-                        # Destroy enemy if clicked
-                        enemies_to_remove.append(enemy)
-                
-                # Remove clicked enemies
-                for enemy in enemies_to_remove:
-                    enemies.remove(enemy)
-        
-        # Randomly spawn new enemies
-        if random.randint(1, 30) == 1:
-            new_enemy = Enemy(
-                x=SCREEN_WIDTH,  # Start from right side
-                y=random.randint(50, SCREEN_HEIGHT - 50),  # Random height
-                health=50,  # Starting health
-                speed=-2,   # Move left
-                color=RED   # Enemy color
-            )
-            enemies.append(new_enemy)
-        
-        # Update and draw enemies
-        for enemy in enemies:
-            enemy.move()
-            enemy.draw(screen)
-        
-        # Remove enemies that go off screen
-        enemies = [e for e in enemies if e.x > 0]
-        
-        # Update display
-        pygame.display.flip()
-        
-        # Control game speed
-        clock.tick(60)
-    
-    # Quit Pygame
-    pygame.quit()
+# Create clock to control game speed
+clock = pygame.time.Clock()
 
-# Run the game
-if __name__ == "__main__":
-    main()
+# Create a list to store enemies
+enemies = []
+
+# Game running flag
+running = True
+
+while running:
+    # Fill screen with white each frame
+    screen.fill(WHITE)
+    
+    # Event handling
+    for event in pygame.event.get():
+        # Quit the game
+        if event.type == pygame.QUIT:
+            running = False
+        
+        # Handle mouse clicks
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # Get mouse position
+            mouse_pos = pygame.mouse.get_pos()
+            
+            # Check each enemy if clicked
+            enemies_to_remove = []
+            for enemy in enemies:
+                if enemy.is_clicked(mouse_pos):
+                    # Destroy enemy if clicked
+                    enemies_to_remove.append(enemy)
+            
+            # Remove clicked enemies
+            for enemy in enemies_to_remove:
+                enemies.remove(enemy)
+    
+    # Randomly spawn new enemies
+    if random.randint(1, 30) == 1:
+        new_enemy = Enemy(
+            x=SCREEN_WIDTH,  # Start from right side
+            y=random.randint(50, SCREEN_HEIGHT - 50),  # Random height
+            health=50,  # Starting health
+            speed=-2,   # Move left
+            color=RED   # Enemy color
+        )
+        enemies.append(new_enemy)
+    
+    # Update and draw enemies
+    for enemy in enemies:
+        enemy.move()
+        enemy.draw(screen)
+    
+    # Remove enemies that go off screen
+    enemies = [e for e in enemies if e.x > 0]
+    
+    # Update display
+    pygame.display.flip()
+    
+    # Control game speed
+    clock.tick(60)
+
+# Quit Pygame
+pygame.quit()
